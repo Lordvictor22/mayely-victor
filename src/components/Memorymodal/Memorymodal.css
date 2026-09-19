@@ -1,0 +1,679 @@
+/* =========================================
+   OVERLAY Y ESTRUCTURA DEL MODAL
+   ========================================= */
+.memory-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 7, 17, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.memory-modal-card {
+  background: #0d1527;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem 2rem 2.5rem;
+  max-width: 750px;
+  width: 90%;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  animation: modalFadeIn 0.3s ease-out;
+  overflow-y: auto;
+}
+
+/* Scrollbar personalizado */
+.memory-modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.memory-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Botón Cerrar */
+.memory-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.8rem;
+  color: #94a3b8;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: color 0.2s ease;
+  z-index: 10;
+}
+
+.memory-close-btn:hover {
+  color: #ffffff;
+}
+
+/* Encabezado */
+.memory-header {
+  margin-bottom: 0.75rem;
+}
+
+.memory-icon {
+  font-size: 2.2rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.memory-header h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.memory-date {
+  display: block;
+  font-size: 0.85rem;
+  color: #fbbf24;
+  margin-top: 0.3rem;
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+
+/* Tag de Localização Elegante */
+.memory-location-tag {
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.3rem 0.9rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #34d399;
+  letter-spacing: 0.03em;
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================
+   CONTAINER DA IMAGEM E BLUR BACKGROUND
+   ========================================= */
+.memory-image-container {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  margin: 1rem 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: #050711;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  perspective: 1000px; /* Habilita o efeito 3D */
+}
+
+.memory-video {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.blurred-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(25px) brightness(0.5);
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+/* =========================================
+   POLAROID 3D FLIP CARD
+   ========================================= */
+.polaroid-card-3d {
+  position: relative;
+  width: 250px;
+  height: 330px;
+  z-index: 2;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  transition: transform 0.4s ease;
+}
+
+.polaroid-card-3d:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.polaroid-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.polaroid-card-3d.flipped .polaroid-inner {
+  transform: rotateY(180deg);
+}
+
+.polaroid-front, .polaroid-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px 12px 18px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* FRENTE DA POLAROID */
+.polaroid-photo-box {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #1e293b;
+}
+
+.polaroid-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption {
+  font-family: 'Comic Sans MS', 'Caveat', cursive, sans-serif;
+  color: #1e293b;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.polaroid-flip-hint {
+  font-size: 0.65rem;
+  color: #059669;
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  animation: pulseHint 2s infinite;
+}
+
+/* VERSO DA POLAROID */
+.polaroid-back {
+  background: #fdfbf7;
+  transform: rotateY(180deg);
+  border: 2px dashed #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.secret-note-content h3 {
+  color: #0f172a;
+  font-size: 1.1rem;
+  margin: 5px 0;
+}
+
+.secret-note-content p {
+  color: #334155;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.click-back-hint {
+  display: block;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+/* =========================================
+   TEXTO Y LETRAS DE CANCIONES
+   ========================================= */
+.memory-text {
+  width: 100%;
+  max-width: 650px;
+  margin: 0.5rem auto 0;
+  padding: 0.5rem 0.75rem 0.75rem;
+  color: #e2e8f0;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.memory-video-link-wrap {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.memory-video-link {
+  display: inline-block;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f43f5e, #ec4899);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memory-video-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(244, 63, 94, 0.45);
+}
+
+.memory-lyric {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: 85%;
+  padding: 0.65rem 1rem;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 500;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  z-index: 20;
+  pointer-events: none;
+  animation: lyricFadeIn 0.8s ease forwards;
+}
+
+@keyframes lyricFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* =========================================
+   WIDGET VINIL
+   ========================================= */
+.vinyl-player-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  border-radius: 30px;
+  width: fit-content;
+  margin: 0.5rem auto 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vinyl-disc {
+  width: 22px;
+  height: 22px;
+  background: radial-gradient(circle, #000 30%, #333 31%, #111 60%, #000 100%);
+  border-radius: 50%;
+  border: 2px solid #555;
+}
+
+.vinyl-disc.spinning {
+  animation: spinVinyl 3s linear infinite;
+}
+
+.vinyl-text {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulseHint {
+  0% { opacity: 0.7; transform: scale(0.98); }
+  50% { opacity: 1; transform: scale(1.03); }
+  100% { opacity: 0.7; transform: scale(0.98); }
+}
+
+/* =========================================
+   ESTRELLAS EN EL BACKGROUND
+   ========================================= */
+.side-stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
+  animation: twinkle var(--duration) ease-in-out infinite alternate;
+  opacity: 0.3;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 25px rgba(255, 255, 255, 0.8);
+  }
+}
+
+.polaroid-photo-box {
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 6px;
+  background-color: #0f172a; /* Fundo escuro elegante para preencher bordas se a foto for menor */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.polaroid-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Alinha pelo centro superior para focar nos rostos */
+  object-position: 50% 20%; 
+}
+
+/* =========================================
+   EFECTO REVELAR Y MOVER A LA IZQUIERDA (CAPÍTULO III)
+   ========================================= */
+
+/* 1. La Polaroid se desliza a la izquierda */
+.reveal-timed-mode .reveal-polaroid {
+  animation: movePolaroidLeft 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.2s forwards;
+}
+
+@keyframes movePolaroidLeft {
+  0% {
+    transform: translateX(0) rotate(-2deg) scale(1);
+  }
+  100% {
+    /* Desliza para a esquerda, diminui levemente e alinha */
+    transform: translateX(-130px) rotate(-4deg) scale(0.85);
+  }
+}
+
+/* FIX DO HOVER: Impede que o mouse jogue a foto de volta pro centro após mover */
+.reveal-timed-mode .reveal-polaroid:hover {
+  transform: translateX(-130px) rotate(0deg) scale(0.88) !important;
+}
+
+/* 2. El fondo "florece" (desenfocado a nítido) */
+.reveal-timed-mode .reveal-bg {
+  animation: bloomBackground 1.5s ease-out 1.2s forwards;
+}
+
+@keyframes bloomBackground {
+  0% {
+    filter: blur(25px) brightness(0.5);
+    transform: scale(1.1);
+  }
+  100% {
+    filter: blur(0px) brightness(1); /* Queda 100% nítida la imagen de fondo */
+    transform: scale(1);
+  }
+}
+
+/* Responsividade: ajuste para telas de celular */
+@media (max-width: 600px) {
+  @keyframes movePolaroidLeft {
+    0% {
+      transform: translateX(0) rotate(-2deg) scale(1);
+    }
+    100% {
+      /* Em telas pequenas, move menos para não sair da tela */
+      transform: translateX(-45px) rotate(-3deg) scale(0.75);
+    }
+  }
+
+  .reveal-timed-mode .reveal-polaroid:hover {
+    transform: translateX(-45px) rotate(0deg) scale(0.78) !important;
+  }
+}
+
+
+/* =========================================
+   CONTAINER DA IMAGEM E BLUR BACKGROUND
+   ========================================= */
+.memory-image-container {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  margin: 1rem 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: #050711;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  perspective: 1000px;
+}
+
+/* Imagem de fundo desbotada/desfocada inicialmente */
+.blurred-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(25px) brightness(0.4);
+  transform: scale(1.1);
+  z-index: 1;
+  transition: filter 1.4s ease-in-out, transform 1.4s ease-in-out;
+}
+
+/* Quando entra a classe 'is-revealed': O fundo fica 100% nítido */
+.memory-image-container.is-revealed .blurred-bg-layer {
+  filter: blur(0px) brightness(1);
+  transform: scale(1);
+}
+
+/* =========================================
+   POLAROID 3D FLIP CARD
+   ========================================= */
+.polaroid-card-3d {
+  position: relative;
+  width: 250px;
+  height: 330px;
+  z-index: 2;
+  cursor: pointer;
+  transform: rotate(-2deg) translateX(0) scale(1);
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.polaroid-card-3d:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+/* Quando entra a classe 'is-revealed': Polaroid vai para a esquerda */
+.memory-image-container.is-revealed .polaroid-card-3d {
+  transform: rotate(-4deg) translateX(-130px) scale(0.85);
+}
+
+/* Ajuste do hover quando já está revelada */
+.memory-image-container.is-revealed .polaroid-card-3d:hover {
+  transform: rotate(0deg) translateX(-130px) scale(0.88);
+}
+
+/* Responsivo para celular */
+@media (max-width: 600px) {
+  .memory-image-container.is-revealed .polaroid-card-3d {
+    transform: rotate(-3deg) translateX(-45px) scale(0.75);
+  }
+
+  .memory-image-container.is-revealed .polaroid-card-3d:hover {
+    transform: rotate(0deg) translateX(-45px) scale(0.78);
+  }
+}
+
+/* =========================================
+   YOUTUBE PREVIEW CARD & REDIRECTION
+   ========================================= */
+.memory-youtube-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 2;
+  background-color: #000;
+  border-radius: 16px;
+}
+
+.memory-youtube-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: brightness(0.85);
+}
+
+.memory-youtube-card:hover .memory-youtube-thumb {
+  transform: scale(1.05);
+  filter: brightness(0.95);
+}
+
+.memory-youtube-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.75) 100%);
+  gap: 10px;
+  transition: background 0.3s ease;
+}
+
+.memory-youtube-card:hover .memory-youtube-overlay {
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.youtube-play-btn-circle {
+  width: 68px;
+  height: 68px;
+  background: #ff0000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 25px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.memory-youtube-card:hover .youtube-play-btn-circle {
+  transform: scale(1.15);
+  box-shadow: 0 6px 30px rgba(255, 0, 0, 0.85), 0 0 16px rgba(255, 255, 255, 0.5);
+}
+
+.youtube-play-icon {
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+  margin-left: 3px; /* Centraliza visualmente o triângulo de play */
+}
+
+.youtube-play-text {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.youtube-subtext {
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Botão de Link no rodapé do modal */
+.memory-video-link-wrap {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.memory-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ff0000 0%, #c40000 100%);
+  color: #ffffff !important;
+  text-decoration: none;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.memory-video-link:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.65);
+  background: linear-gradient(135deg, #ff1a1a 0%, #d40000 100%);
+}
+
+.youtube-badge-icon {
+  flex-shrink: 0;
+}
+

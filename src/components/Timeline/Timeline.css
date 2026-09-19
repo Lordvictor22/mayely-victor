@@ -1,0 +1,115 @@
+  /* Estilos da Linha do Tempo (Timeline) - Nuestro Camino */
+
+  .timeline-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.5rem 4rem 1.5rem;
+    position: relative;
+  }
+
+  .timeline-title {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #94a3b8;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Linha horizontal conectando as lembranças */
+  .timeline-track {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1.5rem 0.5rem;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+
+  .timeline-track::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .timeline-track::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+
+  /* Card/Ponto individual da Timeline */
+  .timeline-item {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  /* Círculo do ponto */
+  .timeline-node {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+  }
+
+  /* Hover somente nos cards desbloqueados */
+  .timeline-item.unlocked:hover .timeline-node {
+    transform: scale(1.08);
+    border-color: rgba(244, 63, 94, 0.5);
+  }
+
+  /* Estado: Desbloqueado */
+  .timeline-item.unlocked .timeline-node {
+    background: rgba(244, 63, 94, 0.15);
+    border-color: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.25);
+  }
+
+  /* Estado: Bloqueado */
+  .timeline-item.locked {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .timeline-item.locked .timeline-node {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.12);
+    filter: grayscale(0.3);
+  }
+
+  /* Cards bloqueados não aumentam ao passar o mouse */
+  .timeline-item.locked:hover .timeline-node {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+  }
+
+  /* Texto abaixo do ponto */
+  .timeline-label {
+    font-size: 0.8rem;
+    color: #cbd5e1;
+    font-weight: 400;
+    max-width: 80px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Texto dos cards bloqueados */
+  .timeline-item.locked .timeline-label {
+    color: #64748b;
+  }

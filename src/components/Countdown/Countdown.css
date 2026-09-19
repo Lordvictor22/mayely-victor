@@ -1,0 +1,29 @@
+.countdown {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.countdown span {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #94a3b8;
+}
+
+.countdown h2 {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 0.2rem 0;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+}
+
+.countdown p {
+  font-size: 1.05rem;
+  color: #f43f5e;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 12px rgba(244, 63, 94, 0.4);
+}

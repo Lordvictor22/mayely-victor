@@ -1,0 +1,28 @@
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.5rem 0.5rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.hero-counter-text {
+  font-size: 1.1rem;
+  color: #fde047; /* Amarelo/Dourado suave */
+  font-weight: 400;
+  font-style: italic;
+  max-width: 500px;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(253, 224, 71, 0.2);
+}
